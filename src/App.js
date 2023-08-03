@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+import "./App.css";
+
+import InputForm from "./components/InputForm";
+import OutputList from "./components/OutputList";
 
 function App() {
+  const items = [];
+
+  const [users, setUsers] = useState(items);
+  const [empty, setEmpty] = useState("");
+
+  const inputHandler = (user) => {
+    user = { ...user, id: Math.random().toString() };
+    setUsers([user, ...users]);
+    setEmpty("something");
+  };
+  console.log(users);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*Build in Wrapper Component of React,,      <>  </>    <Fagment>   */}
+      <h1>
+        <u>User Input</u>
+      </h1>
+      <InputForm inputHandler={inputHandler} />
+      {empty ? (
+        <div className="userData-main">
+          <OutputList users={users} />
+        </div>
+      ) : (
+        <h1>User List Empty...</h1>
+      )}
     </div>
   );
 }
